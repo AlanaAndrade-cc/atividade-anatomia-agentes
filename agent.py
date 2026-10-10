@@ -159,6 +159,7 @@ def execute_llm_call(conversation: List[Dict[str, str]]):
         messages=conversation,
         max_completion_tokens=2000
     )
+    # talvez o thought tenha que ser impresso aqui?
     return response.choices[0].message.content
 
 def run_coding_agent_loop():
