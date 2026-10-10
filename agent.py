@@ -153,6 +153,18 @@ def extract_tool_invocations(text: str) -> List[Tuple[str, Dict[str, Any]]]:
             continue
     return invocations
 
+def extract_observation_resp(resp: dict) -> str:
+    path = resp.get("file_path", "") or resp.get("path", "")
+    lines = [f"{path}"]
+    for k, v in resp.items():
+        if "path" in k.lower(): continue
+        if k == "content": lines.append(f"             {k}:\n{v}")
+        if k == "action": lines.append(f"             {k}: {v}")
+        if k == "files": 
+            filenames = [item["filename"] for item in v]
+            lines.append(f"             {k}: {", ".join(filenames)}")
+    return "\n".join(lines)
+
 def execute_llm_call(conversation: List[Dict[str, str]]):
     response = openai_client.chat.completions.create(
         model="qwen/qwen3.8-27b",
