@@ -219,9 +219,9 @@ def run_coding_agent_loop():
                     resp = tool(args.get("path", "."),
                                 args.get("old_str", ""),
                                 args.get("new_str", ""))
-                
-                observation = f"tool_result({json.dumps(resp)})"
-                print(f"OBSERVATION: {observation}")  # aqui seria o observation?
+
+                observation = extract_observation_resp(resp)
+                print(f"{ASSISTANT_COLOR}OBSERVATION:{RESET_COLOR} {observation}")  # aqui seria o observation?
                 
                 conversation.append({
                     "role": "user",
