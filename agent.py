@@ -190,8 +190,11 @@ def run_coding_agent_loop():
             for name, args in tool_invocations:
                 tool = TOOL_REGISTRY[name]
                 resp = ""
+                
                 print(name, args)
-                # aqui seria o action?
+                format_args = ", ".join(f"{key}={json.dumps(value, ensure_ascii=False)}" for key, value in args.items())
+                print(f"ACTION: {name}({format_args})")  # aqui seria o action?
+                
                 if name == "read_file":
                     resp = tool(args.get("filename", "."))
                 elif name == "list_files":
