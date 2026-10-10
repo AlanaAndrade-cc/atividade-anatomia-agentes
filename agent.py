@@ -203,10 +203,13 @@ def run_coding_agent_loop():
                     resp = tool(args.get("path", "."),
                                 args.get("old_str", ""),
                                 args.get("new_str", ""))
-                # aqui seria o observation?
+                
+                observation = f"tool_result({json.dumps(resp)})"
+                print(f"OBSERVATION: {observation}")  # aqui seria o observation?
+                
                 conversation.append({
                     "role": "user",
-                    "content": f"tool_result({json.dumps(resp)})"
+                    "content": observation
                 })
 
 
