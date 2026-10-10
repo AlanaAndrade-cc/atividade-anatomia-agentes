@@ -194,7 +194,7 @@ def run_coding_agent_loop():
                 
                 # print(name, args)
                 format_args = ", ".join(f"{key}={json.dumps(value, ensure_ascii=False)}" for key, value in args.items())
-                print(f"ACTION: {name}({format_args})")  # aqui seria o action?
+                print(f"{ASSISTANT_COLOR}ACTION:{RESET_COLOR} {name}({format_args})")  # aqui seria o action?
                 
                 if name == "read_file":
                     resp = tool(args.get("filename", "."))
