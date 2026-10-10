@@ -192,7 +192,7 @@ def run_coding_agent_loop():
                 tool = TOOL_REGISTRY[name]
                 resp = ""
                 
-                print(name, args)
+                # print(name, args)
                 format_args = ", ".join(f"{key}={json.dumps(value, ensure_ascii=False)}" for key, value in args.items())
                 print(f"ACTION: {name}({format_args})")  # aqui seria o action?
                 
