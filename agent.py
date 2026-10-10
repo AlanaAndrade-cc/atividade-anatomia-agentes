@@ -159,7 +159,6 @@ def execute_llm_call(conversation: List[Dict[str, str]]):
         messages=conversation,
         max_completion_tokens=2000
     )
-    # talvez o thought tenha que ser impresso aqui?
     return response.choices[0].message.content
 
 def run_coding_agent_loop():
@@ -179,10 +178,14 @@ def run_coding_agent_loop():
         })
         while True:
             assistant_response = execute_llm_call(conversation)
-            # aqui seria o thought?
+
+            response_lines = [line.strip() for line in assistant_response.split("\n")]
+            thought = "\n".join(line for line in response_lines if not line.startswith("tool:")).strip()
+            print(f"{ASSISTANT_COLOR}THOUGHT:{RESET_COLOR} {thought}")  # aqui seria o thought?
+
             tool_invocations = extract_tool_invocations(assistant_response)
             if not tool_invocations:
-                print(f"{ASSISTANT_COLOR}Assistant:{RESET_COLOR}: {assistant_response}")
+                # print(f"{ASSISTANT_COLOR}Assistant:{RESET_COLOR}: {assistant_response}")
                 conversation.append({
                     "role": "assistant",
                     "content": assistant_response
